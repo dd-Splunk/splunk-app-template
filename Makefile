@@ -33,3 +33,7 @@ clean:
 spl:
 	echo "Downloading latest app version from container"
 	./get-spl.sh
+
+token:
+	echo "Creating Admin token"
+	./token.sh
