@@ -13,8 +13,7 @@ services:
       - SPLUNKBASE_USERNAME
       - SPLUNKBASE_PASSWORD
       - SPLUNK_PASSWORD
-      - JAVA_VERSION=openjdk:8
-      - TZ=${TZ}
+      - TZ=${TZ:-Europe/Brussels}
     ports:
       - 8000:8000
       - 8088:8088
