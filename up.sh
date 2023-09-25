@@ -5,10 +5,23 @@ docker compose up -d
 
 echo "Wait for Splunk availability"
 
-REGEX="<sessionKey>(.+)<\/sessionKey>"
-until [[ "$(curl -k -s -u admin:$SPLUNK_PASSWORD https://$SPLUNK_HOST:8089/services/auth/login -d username=admin -d password=$SPLUNK_PASSWORD)" =~ $REGEX ]]; do
+echo "Wait for Splunk availability"
+until [ $(docker inspect --format='{{.State.Health.Status}}' so1) = healthy ]
+do
   echo -n '.'
   sleep 10
 done
-# https://stackoverflow.com/questions/1891797/capturing-groups-from-a-grep-regex
-sessionKey=${BASH_REMATCH[1]}
+
+#
+# ... other config steps
+#
+
+
+echo -e "\nWait for login prompt"
+until $(curl -s -f -o /dev/null -k --head "http://$SPLUNK_HOST:8000")
+do
+  echo -n '.'
+  sleep 10
+done
+
+echo -e "\nUp and Running."
