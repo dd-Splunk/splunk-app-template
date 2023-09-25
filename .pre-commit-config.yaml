@@ -19,7 +19,7 @@ repos:
     -   id: requirements-txt-fixer
     -   id: trailing-whitespace
 
--   repo: https://github.com/python/black.git
+-   repo: https://github.com/psf/black-pre-commit-mirror
     rev: 23.9.1
     hooks:
     - id: black
@@ -37,6 +37,11 @@ repos:
           - flake8-black>=0.1.1
           - flake8-docstrings
         language_version: python3
+        args:
+          - --max-line-length=100
+          - --ignore=E203, E266, E501, W503
+          - --max-complexity=18
+          - --select=B,C,E,F,W,T4,B9
 
 -   repo: https://github.com/PyCQA/isort
     rev: 5.12.0
